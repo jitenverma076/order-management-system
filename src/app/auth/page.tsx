@@ -37,7 +37,7 @@ export default function AuthenticationPage() {
           <div className="relative z-20 mt-auto">
             <blockquote className="space-y-2">
               <p className="text-lg">
-                &ldquo;This order management system has transformed the way we handle our business operations. It's efficient, intuitive, and exactly what we needed.&rdquo;
+                &ldquo;This order management system has transformed the way we handle our business operations. It&apos;s efficient, intuitive, and exactly what we needed.&rdquo;
               </p>
               <footer className="text-sm">Sofia Davis</footer>
             </blockquote>

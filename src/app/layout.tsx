@@ -25,7 +25,7 @@ export default async function RootLayout({
 }: Readonly<{
   children: React.ReactNode
 }>) {
-  const session = await getServerSession(authOptions)
+  await getServerSession(authOptions) // Pre-fetch session to initialize auth
 
   return (
     <html lang="en" suppressHydrationWarning>

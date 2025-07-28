@@ -29,12 +29,9 @@ export function UserAuthForm({
     event.preventDefault()
     setIsLoading(true)
 
-    const formData = new FormData(event.target as HTMLFormElement)
-    const email = formData.get("email") as string
-    const password = formData.get("password") as string
-    const name = formData.get("name") as string
-
     try {
+      const formData = new FormData(event.target as HTMLFormElement)
+      
       if (mode === 'signup') {
         // For development, just simulate signup success
         toast({
@@ -43,14 +40,23 @@ export function UserAuthForm({
         })
         if (onToggleMode) onToggleMode()
       } else {
-        // For development, just simulate signin success
+        const result = await signIn("credentials", {
+          redirect: false,
+          email: formData.get("email"),
+          password: formData.get("password"),
+        })
+        
+        if (result?.error) {
+          throw new Error(result.error)
+        }
+        
         toast({
           title: "Success",
           description: "Welcome back!",
         })
         router.push("/dashboard")
       }
-    } catch (err) {
+    } catch (error) {
       toast({
         title: "Error",
         description: "Something went wrong. Please try again.",
