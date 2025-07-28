@@ -2,7 +2,7 @@ import express from 'express';
 import cors from 'cors';
 import helmet from 'helmet';
 import { createServer } from 'http';
-import { Server } from 'ws';
+import { WebSocketServer, WebSocket } from 'ws';
 import { pinoHttp } from 'pino-http';
 import rateLimit from 'express-rate-limit';
 import db from './config/database';
@@ -10,7 +10,7 @@ import db from './config/database';
 
 const app = express();
 const httpServer = createServer(app);
-const wss = new Server({ server: httpServer });
+const wss = new WebSocketServer({ server: httpServer });
 
 // Middleware
 app.use(helmet());
@@ -33,23 +33,22 @@ app.get('/healthz', (req, res) => {
 });
 
 // WebSocket connection handling
-wss.on('connection', (ws) => {
-  ws.on('message', (message) => {
+wss.on('connection', (ws: WebSocket) => {
+  ws.on('message', (message: WebSocket.Data) => {
     console.log('Received:', message);
   });
   ws.send('Connected to Order Management System');
 });
 
 // Error handling middleware
-interface ErrorRequestHandler extends Error {
+interface CustomError extends Error {
   status?: number;
-  message: string;
 }
 
-app.use((err: ErrorRequestHandler, req: express.Request, res: express.Response, next: express.NextFunction) => {
+app.use((err: Error, req: express.Request, res: express.Response, _next: express.NextFunction) => {
   console.error(err.stack);
-  const status = err.status || 500;
-  res.status(status).json({ 
+  const status = (err as CustomError).status || 500;
+  res.status(status).json({
     error: 'Something went wrong!',
     message: process.env.NODE_ENV === 'development' ? err.message : undefined
   });
