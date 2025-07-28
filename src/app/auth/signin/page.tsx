@@ -2,7 +2,7 @@ import { Metadata } from "next"
 import { redirect } from "next/navigation"
 import { getServerSession } from "next-auth/next"
 
-import { authOptions } from "@/app/api/auth/[...nextauth]/route"
+import { authOptions } from "@/lib/auth"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"

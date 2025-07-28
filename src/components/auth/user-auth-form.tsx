@@ -56,7 +56,7 @@ export function UserAuthForm({
         })
         router.push("/dashboard")
       }
-    } catch (error) {
+    } catch (_) {
       toast({
         title: "Error",
         description: "Something went wrong. Please try again.",
