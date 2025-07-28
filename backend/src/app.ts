@@ -2,7 +2,7 @@ import express from 'express';
 import cors from 'cors';
 import helmet from 'helmet';
 import { createServer } from 'http';
-import { Server } from 'ws';
+import WebSocket from 'ws';
 import { pinoHttp } from 'pino-http';
 import rateLimit from 'express-rate-limit';
 import db from './config/database';
@@ -10,7 +10,7 @@ import { User, Product, Order, OrderItem } from './models';
 
 const app = express();
 const httpServer = createServer(app);
-const wss = new Server({ server: httpServer });
+const wss = new WebSocket.Server({ server: httpServer });
 
 // Middleware
 app.use(helmet());
