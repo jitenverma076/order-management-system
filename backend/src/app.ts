@@ -2,15 +2,15 @@ import express from 'express';
 import cors from 'cors';
 import helmet from 'helmet';
 import { createServer } from 'http';
-import WebSocket from 'ws';
+import { Server } from 'ws';
 import { pinoHttp } from 'pino-http';
 import rateLimit from 'express-rate-limit';
 import db from './config/database';
-import { User, Product, Order, OrderItem } from './models';
+// Import models if needed later
 
 const app = express();
 const httpServer = createServer(app);
-const wss = new WebSocket.Server({ server: httpServer });
+const wss = new Server({ server: httpServer });
 
 // Middleware
 app.use(helmet());
@@ -41,9 +41,18 @@ wss.on('connection', (ws) => {
 });
 
 // Error handling middleware
-app.use((err: any, req: any, res: any, next: any) => {
+interface ErrorRequestHandler extends Error {
+  status?: number;
+  message: string;
+}
+
+app.use((err: ErrorRequestHandler, req: express.Request, res: express.Response, next: express.NextFunction) => {
   console.error(err.stack);
-  res.status(500).json({ error: 'Something went wrong!' });
+  const status = err.status || 500;
+  res.status(status).json({ 
+    error: 'Something went wrong!',
+    message: process.env.NODE_ENV === 'development' ? err.message : undefined
+  });
 });
 
 // Database connection and server startup
