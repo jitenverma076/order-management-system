@@ -1,102 +1,139 @@
-import Image from "next/image";
+import { Button } from "@/components/ui/button";
+import { ThemeToggle } from "@/components/theme-toggle";
+import { Badge } from "@/components/ui/badge";
+import Link from "next/link";
+import { PackageOpen, ShoppingCart, BarChart3, Zap } from "lucide-react";
 
 export default function Home() {
   return (
-    <div className="font-sans grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20">
-      <main className="flex flex-col gap-[32px] row-start-2 items-center sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={180}
-          height={38}
-          priority
-        />
-        <ol className="font-mono list-inside list-decimal text-sm/6 text-center sm:text-left">
-          <li className="mb-2 tracking-[-.01em]">
-            Get started by editing{" "}
-            <code className="bg-black/[.05] dark:bg-white/[.06] font-mono font-semibold px-1 py-0.5 rounded">
-              src/app/page.tsx
-            </code>
-            .
-          </li>
-          <li className="tracking-[-.01em]">
-            Save and see your changes instantly.
-          </li>
-        </ol>
-
-        <div className="flex gap-4 items-center flex-col sm:flex-row">
-          <a
-            className="rounded-full border border-solid border-transparent transition-colors flex items-center justify-center bg-foreground text-background gap-2 hover:bg-[#383838] dark:hover:bg-[#ccc] font-medium text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 sm:w-auto"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={20}
-              height={20}
-            />
-            Deploy now
-          </a>
-          <a
-            className="rounded-full border border-solid border-black/[.08] dark:border-white/[.145] transition-colors flex items-center justify-center hover:bg-[#f2f2f2] dark:hover:bg-[#1a1a1a] hover:border-transparent font-medium text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 w-full sm:w-auto md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Read our docs
-          </a>
+    <div className="min-h-screen bg-gradient-to-b from-background via-background to-muted/20">
+      {/* Navigation */}
+      <nav className="border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
+        <div className="container flex h-16 items-center justify-between px-4">
+          <div className="flex items-center gap-2">
+            <h1 className="text-xl font-bold">OrderFlow</h1>
+            <Badge variant="secondary">v1.0</Badge>
+          </div>
+          <div className="flex items-center gap-4">
+            <ThemeToggle />
+            <Button variant="ghost" asChild>
+              <Link href="/auth">Sign In</Link>
+            </Button>
+            <Button variant="default" asChild>
+              <Link href="/auth?mode=signup">Sign Up</Link>
+            </Button>
+          </div>
         </div>
-      </main>
-      <footer className="row-start-3 flex gap-[24px] flex-wrap items-center justify-center">
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/file.svg"
-            alt="File icon"
-            width={16}
-            height={16}
-          />
-          Learn
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/window.svg"
-            alt="Window icon"
-            width={16}
-            height={16}
-          />
-          Examples
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/globe.svg"
-            alt="Globe icon"
-            width={16}
-            height={16}
-          />
-          Go to nextjs.org →
-        </a>
+      </nav>
+
+      {/* Hero Section */}
+      <section className="container py-16 md:py-24">
+        <div className="mx-auto max-w-4xl text-center">
+          <h1 className="text-4xl font-bold tracking-tight sm:text-5xl md:text-6xl bg-gradient-to-r from-foreground to-foreground/80 bg-clip-text text-transparent">
+            Streamline Your Order Management
+          </h1>
+          <p className="mx-auto mt-6 max-w-2xl text-lg leading-8 text-muted-foreground">
+            A modern, efficient order management system designed to help you track, manage, and fulfill orders with ease.
+          </p>
+          <div className="mt-10 flex items-center justify-center gap-4">
+            <Button size="lg" className="gap-2" asChild>
+              <Link href="/auth">
+                <Zap className="w-4 h-4" />
+                Get Started
+              </Link>
+            </Button>
+            <Button variant="outline" size="lg" className="gap-2" asChild>
+              <Link href="#features">
+                Learn More
+              </Link>
+            </Button>
+          </div>
+        </div>
+      </section>
+
+      {/* Features Section */}
+      <section id="features" className="container py-24 space-y-16">
+        <h2 className="text-3xl font-bold text-center">Key Features</h2>
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+          <div className="p-6 rounded-lg border bg-card text-card-foreground shadow-sm">
+            <PackageOpen className="w-12 h-12 text-primary mb-4" />
+            <h3 className="text-xl font-semibold mb-2">Order Tracking</h3>
+            <p className="text-muted-foreground">Real-time tracking and monitoring of all your orders from creation to delivery.</p>
+          </div>
+          <div className="p-6 rounded-lg border bg-card text-card-foreground shadow-sm">
+            <ShoppingCart className="w-12 h-12 text-primary mb-4" />
+            <h3 className="text-xl font-semibold mb-2">Inventory Management</h3>
+            <p className="text-muted-foreground">Keep track of your inventory levels and get alerts when stock is running low.</p>
+          </div>
+          <div className="p-6 rounded-lg border bg-card text-card-foreground shadow-sm">
+            <BarChart3 className="w-12 h-12 text-primary mb-4" />
+            <h3 className="text-xl font-semibold mb-2">Analytics</h3>
+            <p className="text-muted-foreground">Detailed insights and reports to help you make data-driven decisions.</p>
+          </div>
+        </div>
+      </section>
+
+      {/* Features Section */}
+      <section id="features" className="border-t py-16">
+        <div className="container">
+          <h2 className="text-center text-3xl font-bold mb-12">Powerful Features</h2>
+          <div className="grid gap-8 md:grid-cols-3">
+            {[
+              {
+                title: "Real-time Updates",
+                description: "Get instant notifications and updates on order status changes with our WebSocket integration."
+              },
+              {
+                title: "Inventory Management",
+                description: "Keep track of your stock levels and get alerts when items are running low."
+              },
+              {
+                title: "Customer Portal",
+                description: "Provide your customers with a self-service portal to track their orders."
+              }
+            ].map((feature, index) => (
+              <div key={index} className="rounded-lg border p-6">
+                <h3 className="text-xl font-semibold mb-2">{feature.title}</h3>
+                <p className="text-muted-foreground">{feature.description}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* CTA Section */}
+      <section className="bg-primary/5 py-16">
+        <div className="container text-center">
+          <h2 className="text-3xl font-bold mb-6">Ready to get started?</h2>
+          <p className="mx-auto max-w-2xl text-muted-foreground mb-8">
+            Join hundreds of businesses that trust our order management system to streamline their operations.
+          </p>
+          <Button size="lg" className="px-8" asChild>
+            <Link href="/auth/signin">
+              Sign Up Now
+            </Link>
+          </Button>
+        </div>
+      </section>
+
+      {/* Footer */}
+      <footer className="border-t py-8">
+        <div className="container flex flex-col items-center justify-between gap-4 md:flex-row">
+          <p className="text-sm text-muted-foreground">
+            &copy; {new Date().getFullYear()} OrderFlow. All rights reserved.
+          </p>
+          <div className="flex items-center gap-4">
+            <Link href="/privacy" className="text-sm hover:underline">
+              Privacy
+            </Link>
+            <Link href="/terms" className="text-sm hover:underline">
+              Terms
+            </Link>
+            <Link href="/contact" className="text-sm hover:underline">
+              Contact
+            </Link>
+          </div>
+        </div>
       </footer>
     </div>
   );
