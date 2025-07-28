@@ -17,11 +17,18 @@ export const authOptions: NextAuthOptions = {
         if (!credentials?.email || !credentials?.password) {
           return null
         }
-        return {
-          id: "1",
-          email: credentials.email,
-          name: "Test User",
-          role: "USER"
+
+        // In a real application, you would validate credentials here
+        // For development, we'll just check if credentials exist
+        try {
+          return {
+            id: "1",
+            email: credentials.email,
+            name: "User",
+            role: "USER"
+          }
+        } catch (_) {
+          return null
         }
       }
     })
